@@ -6,7 +6,7 @@ What the challenge is:\
 \
 Each folder is the challenge for that day.\
 \
-Each folder includes:\
-1) c++ file with code\
-2) input file to read from\ 
-3) instructions from the challenge, featuring the solution (which you unlock only after you have entered the correct answer)\
+Each folder includes:
+1) c++ file with code
+2) input file to read from
+3) instructions from the challenge, featuring the solution (which you unlock only after you have entered the correct answer)
