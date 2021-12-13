@@ -86,8 +86,7 @@ void findGammaRateAndEpsilonRate(std::vector<std::string> &binList, std::string 
 		if (zeroCounter > oneCounter) {
 			gammaRate += '0';
 			epsilonRate += '1';
-		}
-		else {
+		} else {
 			gammaRate += '1';
 			epsilonRate += '0';
 		}
