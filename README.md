@@ -4,6 +4,9 @@ What the challenge is:\
  	"Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and 
 	skill levels that can be solved in any programming language you like."\
 \
+Why I'm doing it:\
+for fun and improving my c++ skills.
+\
 Each folder is the challenge for that day.\
 \
 Each folder includes:
