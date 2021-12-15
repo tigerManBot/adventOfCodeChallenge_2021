@@ -11,7 +11,7 @@ for a match. If there is a match, then the identical index on the boolean list i
 After each round, the boolean list is searched for a winner.
 For a board to win, an entire row or entire column on the 5*5 board has to be marked true.
 
-Once, there is a winner, the game stops and the score of that board is made based on arbitary rules of
+Once there is a winner, the game stops and the score of that board is made based on arbitary rules of
 this challenge.
 */
 
