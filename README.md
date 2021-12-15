@@ -5,7 +5,7 @@ What the challenge is:\
 	skill levels that can be solved in any programming language you like."\
 \
 Why I'm doing it:\
-for fun and improving my c++ skills.
+for fun and improving my c++ skills.\
 \
 Each folder is the challenge for that day.\
 \
