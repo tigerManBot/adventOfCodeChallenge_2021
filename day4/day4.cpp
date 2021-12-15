@@ -54,7 +54,7 @@ int main()
 	std::string emptyLine;
 	skipBlankLine(inFile, emptyLine);
 
-	//create the master board, list of all the boards in the file playing the game.
+	//create the master board, finishes reading the file
 	std::vector<int> masterBoard;	//list of every board
 	createMasterBoard(inFile, emptyLine, masterBoard);
 	inFile.close();
@@ -65,7 +65,7 @@ int main()
 	std::vector<bool> statusOfAllBoards;
 	createResultsBoard(masterBoard, statusOfAllBoards);
 
-
+	//"game" begins
 	std::vector<bool> currentBoard;
 	bool victoryStatus = false;
 	int randDrawIndex = 0;
