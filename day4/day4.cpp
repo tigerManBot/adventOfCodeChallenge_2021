@@ -54,7 +54,7 @@ int main()
 	std::string emptyLine;
 	skipBlankLine(inFile, emptyLine);
 
-	//create the master board
+	//create the master board, list of all the boards in the file playing the game.
 	std::vector<int> masterBoard;	//list of every board
 	createMasterBoard(inFile, emptyLine, masterBoard);
 	inFile.close();
