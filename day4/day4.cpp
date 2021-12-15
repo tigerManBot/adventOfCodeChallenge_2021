@@ -204,7 +204,7 @@ void getCurrentBoard(int board,std::vector<Type> &originalBoard, std::vector<Typ
 		newBoard.push_back(originalBoard[i]);
 }
 
-//Arbitrary challenge rules
+//Arbitrary advent of code instruction rules
 //any element on statusOfAllBoards that is false, will have the corresponding index of masterBoard
 //added to a running score
 int	getWinningBoardScore(int winningBoard, std::vector<bool> &currentBoard, std::vector<int> &masterBoard)
