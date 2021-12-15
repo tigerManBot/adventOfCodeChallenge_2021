@@ -199,8 +199,8 @@ void getCurrentBoard(int board,std::vector<Type> &originalBoard, std::vector<Typ
 	if (!newBoard.empty()) 
 		newBoard.clear();
 	
-	int last = board + 24;
-	for (int i = board; i <= last; i++)
+	int last = board + 25;
+	for (int i = board; i < last; i++)
 		newBoard.push_back(originalBoard[i]);
 }
 
