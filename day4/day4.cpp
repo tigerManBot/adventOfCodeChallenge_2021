@@ -72,9 +72,13 @@ int main()
 	int currentDraw;
 	int winningBoard = -1;
 	while (!victoryStatus) {
+		//get the first draw of bingo game
 		currentDraw = randomDrawList[randDrawIndex];
-		updateStatusBoard(currentDraw, masterBoard, statusOfAllBoards);	//checks if any of the boards have the current number drawn, marks them true if that's the case
 
+		//checks if any of the boards have the current number drawn, 
+		//marks them true if that's the case
+		updateStatusBoard(currentDraw, masterBoard, statusOfAllBoards);	
+		
 		victoryStatus = checkVictoryStatus(statusOfAllBoards, winningBoard, currentBoard);
 
 		if (victoryStatus)
