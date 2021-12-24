@@ -47,6 +47,16 @@ void readAndStore(std::vector<std::string> &binaryList)
 	inFile.close();
 }
 
+/*
+Function looks through the vector of strings column by column
+and keeps a counter of zeros and ones in the binary strings.
+Strings in the vector that have the most common element
+are stored into a separate temporary vector.
+the original vector, oxygenList is assigned that temporary vector,
+"deleting" the strings in the vector that did not match the most common element
+	-I wasn't able to remove arbitrary elements from the vector without causing issues,
+	this works at least
+*/
 std::string getOxygenRating(std::vector<std::string> &oxygenList)
 {
 	int zeroCounter = 0, oneCounter = 0;
@@ -77,7 +87,7 @@ std::string getOxygenRating(std::vector<std::string> &oxygenList)
 	return oxygenList[0];
 }
 
-//co2 rating
+
 std::string getC02Rating(std::vector<std::string> &co2List)
 {
 	int zeroCounter = 0, oneCounter = 0;
