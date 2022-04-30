@@ -8,67 +8,70 @@ Day 1: Sonar sweep
 #include <fstream>
 #include <vector>
 
-void readFileAndStore(std::vector<int> &list);
-int getNumberOfIncreases(std::vector<int> &list);
-int getSumIncreases(std::vector<int> &list);
+//reading input
+void readFileAndStore(std::vector<int>&);
+
+//main work
+int getNumberOfIncreases(const std::vector<int>&);
+int getSumIncreases(const std::vector<int>&);
 
 int main()
 {
+	std::cout << "\n";
+
 	//part one of day1 challenge, find the number of increases
-	//increase happens when next number on list is bigger than previous.
+	//increase happens when next number on depthMeasurements is bigger than previous.
 
-	std::vector<int> numbers;
-	int numberOfIncreases = 0;
+	std::vector<int> depthMeasurements;
+	readFileAndStore(depthMeasurements);
 
-	readFileAndStore(numbers);
+	int numberOfIncreases = getNumberOfIncreases(depthMeasurements);
 
-	numberOfIncreases = getNumberOfIncreases(numbers);
+	std::cout << "Number of increases: " << numberOfIncreases << "\n";
 
-	std::cout << "\nNumber of increases: " << numberOfIncreases << std::endl << std::endl;
-
-	//part two: Group each number into groups of 3. Find the sum of the group. 
-	//Compare the sum of each group to the next group.
-	//count each time the sum increases
-	int sumIncreases = 0;
-	sumIncreases = getSumIncreases(numbers);
-	std::cout << "Number of sum increases: " << sumIncreases << std::endl << std::endl;
-	return 0;
+	//part two: 
+	int sumIncreases = getSumIncreases(depthMeasurements);
+	std::cout << "Number of sum increases: " << sumIncreases << "\n\n";
+	
 }
 
-void readFileAndStore(std::vector<int> &list)
+//read through the file and store into the vector
+void readFileAndStore(std::vector<int>& depthMeasurements)
 {
-	int temp;	//int read from file and stored into the vector
-
 	std::ifstream inFile;
 	inFile.open("input.txt");
 
-	if (!inFile) {
-		std::cout << "\nError: bad file read. Check that have the correct input file.\n\n";
-		exit(0);
+	if (!inFile) 
+	{
+		std::cout << "\nError with file read in readFileAndStore\n";
+		exit(1);
 	}
 
 	//read from file and store contents into vector
-	while(!inFile.eof()) {
+	int temp;
+	while(!inFile.eof()) 
+	{
 		inFile >> temp;
-		list.push_back(temp);
+		depthMeasurements.push_back(temp);
 	}
 
 	inFile.close();
 
 }
 
-//function to count the number of times each number of the list is greater than the previous
-int getNumberOfIncreases(std::vector<int> &list)
+//function to count the number of times each number of the depthMeasurements is greater than the previous
+int getNumberOfIncreases(const std::vector<int>& depthMeasurements)
 {
 	int numberOfIncreases = 0;
 
 	//index starts at one as 0 has no previous
-	for (int i = 1; i < list.size(); i++) {
-		if (list[i] > list[i-1])
+	for (size_t i = 1; i < depthMeasurements.size(); i++) 
+	{
+		if (depthMeasurements[i] > depthMeasurements[i-1])
+		{
 			numberOfIncreases++;
-
+		}
 	}
-
 	return numberOfIncreases;
 }
 
@@ -76,25 +79,27 @@ int getNumberOfIncreases(std::vector<int> &list)
 getSumIncreases:
 	-groups 3 numbers into a group, each group is called a window.
 	-Then adds each number in the window.
-	-After that, go through the list and compare the current sum window to the next.
+	-After that, go through the depthMeasurements and compare the current sum window to the next.
 	-return the number of times the sum increases
 */	
-int getSumIncreases(std::vector<int> &list)
+int getSumIncreases(const std::vector<int>& depthMeasurements)
 {
 	int currentSumWindow = 0;
 	int nextSumWindow = 0;
-
 	int sumIncreases = 0;
 
-	//list.size() = 2001, last element on 2000, so -1
+	//depthMeasurements.size() = 2001, last element on 2000, so -1
 	//next window starts at the next number and needs two more after that, so -3
-	//so max index is list.size() -4
-	for (int i = 0; i < list.size() - 4; i++) {
-		currentSumWindow = list[i] + list[i + 1] + list[i + 2];
-		nextSumWindow = list[i + 1] + list[i + 2] + list[i + 3];
+	//so max index is depthMeasurements.size() -4
+	for (size_t i = 0; i < depthMeasurements.size() - 4; i++) 
+	{
+		currentSumWindow = depthMeasurements[i] + depthMeasurements[i + 1] + depthMeasurements[i + 2];
+		nextSumWindow = depthMeasurements[i + 1] + depthMeasurements[i + 2] + depthMeasurements[i + 3];
 
 		if (nextSumWindow > currentSumWindow)
+		{
 			sumIncreases++;
+		}
 	}
 
 	return sumIncreases;
