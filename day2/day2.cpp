@@ -11,17 +11,17 @@ Day 2 Dive:
 #include <fstream>
 #include <vector>
 
-void readAndStore(std::vector<std::string> &directionsList, std::vector<int> &unitsList);
+void readAndStore(std::vector<std::string>&, std::vector<int>&);
 
 //for part 1, no aim taken into account
-int getPosition(std::vector<std::string> &directionsList, std::vector<int> &unitsList);
+int getPosition(std::vector<std::string>&, std::vector<int>&);
 
 //part2, a more accurate postion, taking aim into account
-int getAccuratePosition(std::vector<std::string> &directionsList, std::vector<int> &unitsList);
+int getAccuratePosition(std::vector<std::string>&, std::vector<int>&);
 
 int main()
 {
-	std::cout << std::endl;
+	std::cout << "\n";
 
 	std::vector<std::string> submarineDriections;	//from input file, direction submarine goes
 	std::vector<int> units; 	//amount of units in that direction
@@ -29,10 +29,10 @@ int main()
 	readAndStore(submarineDriections, units);
 
 	int position = getPosition(submarineDriections, units);
-	std::cout << "Postition: " << position << std::endl << std::endl;
+	std::cout << "Postition: " << position << "\n";
 
 	position = getAccuratePosition(submarineDriections, units);
-	std::cout << "More accurate postition: " << position << std::endl << std::endl;
+	std::cout << "More accurate postition: " << position << "\n\n";
 
 	return 0;
 }
@@ -43,24 +43,26 @@ readAndStore:
 	-The first is a direction(string) for the submarine, stored in directions vector of strings
 	-The second is the units(int) in that direction, stored in vector of ints
 */
-void readAndStore(std::vector<std::string> &directionsList, std::vector<int> &unitsList)
+void readAndStore(std::vector<std::string>& directions, std::vector<int>& unitsInThatDirection)
 {
 	std::ifstream inFile;
 	inFile.open("day2Input.txt");
-	if (!inFile) {
-		std::cout << "\nFile read failure. Check that you have the correct input file." << std::endl << std::endl;
-		exit(0);
+	if (!inFile) 
+	{
+		std::cout << "\nFile read error.\n";
+		exit(1);
 	}
 
 	//temps used for reading file
 	std::string tempStr;
 	int tempInt;
 
-	while (!inFile.eof()) {
+	while (!inFile.eof()) 
+	{
 		inFile >> tempStr >> tempInt;
 
-		directionsList.push_back(tempStr);
-		unitsList.push_back(tempInt);
+		directions.push_back(tempStr);
+		unitsInThatDirection.push_back(tempInt);
 	}
 
 	inFile.close();
@@ -68,41 +70,52 @@ void readAndStore(std::vector<std::string> &directionsList, std::vector<int> &un
 
 
 //uses the information from the file to calculate the final postion of the submarine.
-int getPosition(std::vector<std::string> &directionsList, std::vector<int> &unitsList)
+int getPosition(std::vector<std::string>& directions, std::vector<int>& unitsInThatDirection)
 {
 	int horizontalPosition = 0;
 	int depth = 0;
-	int lastElement = directionsList.size() -1;	//both lists are same size, so just -1 to get last element
 
-	for (int i = 0; i < lastElement; i++) {
-			if (directionsList[i] == "forward")
-				horizontalPosition += unitsList[i];
-			else if (directionsList[i] == "down")	
-				depth += unitsList[i];	//submarine down is positive in calculations
-			else if (directionsList[i] == "up")
-				depth -= unitsList[i];	//likewise, also opposite of what you might expect
+	for (size_t i = 0; i < directions.size() -1; i++) 
+	{
+		if (directions[i] == "forward")
+		{
+			horizontalPosition += unitsInThatDirection[i];
+		}
+		else if (directions[i] == "down")	
+		{
+			depth += unitsInThatDirection[i];	//submarine down is positive in calculations
+		}
+		else if (directions[i] == "up")
+		{
+			depth -= unitsInThatDirection[i];	//likewise, also opposite of what you might expect
+		}
 	}
 
 	return horizontalPosition * depth;
-
 }
 
 
 //realtively similar, just taking into account aim now.
-int getAccuratePosition(std::vector<std::string> &directionsList, std::vector<int> &unitsList)
+int getAccuratePosition(std::vector<std::string>& directions, std::vector<int>& unitsInThatDirection)
 {
 	int horizontalPosition = 0;
 	int depth = 0;
 	int aim = 0;
 
-	for (int i = 0; i < 1000; i++) {
-		if (directionsList[i] == "down")
-			aim += unitsList[i];
-		else if (directionsList[i] == "up")
-			aim -= unitsList[i];
-		else if (directionsList[i] == "forward") {
-			horizontalPosition += unitsList[i];
-			depth += aim * unitsList[i];
+	for (size_t i = 0; i < directions.size() -1; i++) 
+	{
+		if (directions[i] == "down")
+		{
+			aim += unitsInThatDirection[i];
+		}
+		else if (directions[i] == "up")
+		{
+			aim -= unitsInThatDirection[i];
+		}
+		else if (directions[i] == "forward") 
+		{
+			horizontalPosition += unitsInThatDirection[i];
+			depth += aim * unitsInThatDirection[i];
 		}
 	}
 
