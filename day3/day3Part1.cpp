@@ -10,91 +10,115 @@ Day 3: Binary Diagnostic
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
-#include <cmath>
 
-void readAndStore(std::vector<std::string> &binList);
-void findGammaRateAndEpsilonRate(std::vector<std::string> &binList, std::string &gammaRate, std::string &epsilonRate);
+void readAndStore(std::vector<std::string>&);
+
+template <typename Type>
+void printVector(const std::vector<Type>&);
+
+//main work
+void calculatePowerConsumption(std::vector<std::string>&);
+char getMostCommon(std::unordered_map<char, int>& binaryCharMap);
+void displayResult(std::string gammaRate, std::string epsilonRate);
 
 int main()
 {
-	std::cout << std::endl;
+	std::cout << '\n';
 
-	std::vector<std::string> binaryList;	//original list of binary numbers on each line
-	std::string gammaRate, epsilonRate;
-
-	int gammaRate_asInt, epsilonRate_asInt;
-	int powerConsumption;
+	std::vector<std::string> binaryNumbers;
+	readAndStore(binaryNumbers);
 	
-	//read file, store contents into binaryList vector
-	readAndStore(binaryList);
+	calculatePowerConsumption(binaryNumbers);
 
-	//go through binaryList, and make the gammaRate and epsilonRate strings
-	findGammaRateAndEpsilonRate(binaryList, gammaRate, epsilonRate);
-
-	//convert the two binary numbers(stored as strings currently) to a decimal integer
-	gammaRate_asInt = stoi(gammaRate, nullptr, 2);	//base 2 for binary numbers
-	epsilonRate_asInt = stoi(epsilonRate, nullptr, 2);
-	
-	powerConsumption = gammaRate_asInt * epsilonRate_asInt;
-	std::cout << "Power Consumption of the submarine = " << powerConsumption << std::endl << std::endl;
-
+	std::cout << '\n';
 	return 0;
 }
 
-//read contents from the file and store them into the vector
-void readAndStore(std::vector<std::string> &binList)
+void readAndStore(std::vector<std::string>& binaryNumbers)
 {
-	std::ifstream inFile;
-	inFile.open("diagnosticReport.txt");
-	if (!inFile) {
-		std::cout << "File read error, check that you have the correct input file." << std::endl << std::endl;
-		exit(0);
+	std::ifstream inFile("diagnosticReport.txt");
+	if (!inFile)
+	{
+		std::cout << "\nError with file read.\n";
+		exit(1);
 	}
 
-	std::string tempReadStr;
-	while (!inFile.eof()) {
-		getline(inFile, tempReadStr, '\n');
-		binList.push_back(tempReadStr);
-	}
+	std::string readStr;
+	while (!inFile.eof())
+	{
+		inFile >> readStr;
+		binaryNumbers.push_back(readStr);
+	}	
 
 	inFile.close();
 }
+template <typename Type>
+void printVector(const std::vector<Type>& vect)
+{
+	for (auto& i : vect)
+	{
+		std::cout << i << "\n";
+	}
+	std::cout << "\n";
+}
+
 /*
-findGammaRateAndEpsilonRate:
-	-Goes through each column in the binary list vector and
+calculatePowerConsumption:
+	-Goes through each column in the binary numbers vector and
 	-counts the amount of zeroes and ones.
 	-Based on these two counters, a '0' or '1' is added to the end of gammaRate and epsilonRate strings
-
 */
-void findGammaRateAndEpsilonRate(std::vector<std::string> &binList, std::string &gammaRate, std::string &epsilonRate)
+void calculatePowerConsumption(std::vector<std::string>& binaryNumbers)
 {
-	int zeroCounter = 0, oneCounter = 0;
+	std::string gammaRate;
+	std::string epsilonRate;
 
-	//binList[i].size = 12, 12 characters in each string
-	//or 12 columns to go through
-	for (int i = 0; i < binList[i].size(); i++ ) {
-		
-		//binList.size = 1000. 1000 strings to go through
-		for (int j = 0; j < binList.size(); j++) {
-			if (binList[j][i] == '0')
-				zeroCounter++;
-			else
-				oneCounter++;
+	for (size_t i = 0; i < binaryNumbers[i].size(); i++)
+	{
+		std::unordered_map<char, int> binaryCharMap;
+
+		for (size_t j = 0; j < binaryNumbers.size(); j++)
+		{
+			binaryCharMap[binaryNumbers[j][i]]++;
 		}
 
-		if (zeroCounter > oneCounter) {
+		char mostCommon = getMostCommon(binaryCharMap);
+
+		if (mostCommon == '0')
+		{
 			gammaRate += '0';
 			epsilonRate += '1';
-		} else {
+		}
+		else
+		{
 			gammaRate += '1';
 			epsilonRate += '0';
 		}
-
-		//reset counters for next iteration
-		oneCounter = 0;
-		zeroCounter = 0;
 	}
-	
+
+	displayResult(gammaRate, epsilonRate);
 }
 
+//returns the character with the highest count
+char getMostCommon(std::unordered_map<char, int>& binaryCharMap)
+{
+	char mostCommon;
+
+	//only have to worry about two keys in the map
+	(binaryCharMap['0'] > binaryCharMap['1']) ? mostCommon = '0' : mostCommon = '1';
+
+	return mostCommon;
+}
+
+//power consumption is gamme rate * epsilon rate
+void displayResult(std::string gammaRate, std::string epsilonRate)
+{
+	//have to convert to int to complete calculation
+	int gammaRate_asInt = stoi(gammaRate, nullptr, 2);	//base 2 for binary 
+	int epsilonRate_asInt = stoi(epsilonRate, nullptr, 2);
+
+	int powerConsumption = gammaRate_asInt * epsilonRate_asInt;
+	std::cout << "Power consumption of the submarine = " << powerConsumption << "\n\n";
+}
