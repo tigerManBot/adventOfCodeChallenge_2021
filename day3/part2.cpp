@@ -14,11 +14,11 @@ string which is the oxygenRating and co2Rating.
 #include <string>
 #include <vector>
 
-void readAndStore(std::vector<std::string> &binaryList);
-std::string getOxygenRating(std::vector<std::string> &oxygenList);
-std::string getC02Rating(std::vector<std::string> &co2List);
+void readAndStore(std::vector<std::string>&);
+std::string getOxygenRating(std::vector<std::string>&);
+std::string getC02Rating(std::vector<std::string>&);
 
-void printVector(const std::vector<std::string> &list);
+void printVector(const std::vector<std::string>&);
 
 int main() 
 {
@@ -40,17 +40,19 @@ int main()
 	return 0;
 }
 
-void readAndStore(std::vector<std::string> &binaryList)
+void readAndStore(std::vector<std::string>& binaryList)
 {
 	std::ifstream inFile;
 	inFile.open("diagnosticReport.txt");
-	if (!inFile) {
+	if (!inFile) 
+	{
 		std::cout << "File read error, check that you have the correct input file." << "\n\n";
 		exit(0);
 	}
 
 	std::string tempReadStr;
-	while (!inFile.eof()) {
+	while (!inFile.eof()) 
+	{
 		getline(inFile, tempReadStr, '\n');
 		binaryList.push_back(tempReadStr);
 	}
@@ -70,22 +72,26 @@ The vector gets smaller and smaller until, it is just one string, which is the o
 	Then, the original vector, oxygenList is assigned that original vector, effectively
 	deleting all the elements that do not have the most common element in the current column.
 */
-std::string getOxygenRating(std::vector<std::string> &oxygenList)
+std::string getOxygenRating(std::vector<std::string>& oxygenList)
 {
 	int zeroCounter = 0, oneCounter = 0;
 	char mostCommon;
 	std::vector<std::string> itemsToKeep;
 
-	for (std::vector<std::string>::size_type i = 0; i < oxygenList[i].size(); i++) {
+	for (std::vector<std::string>::size_type i = 0; i < oxygenList[i].size(); i++) 
+	{
 		
-		for (auto currentString: oxygenList) {
+		for (auto& currentString: oxygenList) 
+		{
 			(currentString[i] == '0') ? zeroCounter++ : oneCounter++;	
 		}
 
 		mostCommon = (oneCounter >= zeroCounter) ? '1' : '0';
 		
-		for (auto currentString: oxygenList) {
-			if (currentString[i] == mostCommon) {
+		for (auto currentString: oxygenList) 
+		{
+			if (currentString[i] == mostCommon) 
+			{
 				itemsToKeep.push_back(currentString);
 			}
 		}
@@ -101,22 +107,26 @@ std::string getOxygenRating(std::vector<std::string> &oxygenList)
 }
 
 
-std::string getC02Rating(std::vector<std::string> &co2List)
+std::string getC02Rating(std::vector<std::string>& co2List)
 {
 	int zeroCounter = 0, oneCounter = 0;
 	char leastCommon;
 	std::vector<std::string> itemsToKeep;
 
-	for (std::vector<std::string>::size_type i = 0; i < co2List[i].size(); i++) {
+	for (std::vector<std::string>::size_type i = 0; i < co2List[i].size(); i++) 
+	{
 		
-		for (auto currentString: co2List) {
+		for (auto currentString: co2List) 
+		{
 			(currentString[i] == '0') ? zeroCounter++ : oneCounter++;	
 		}
 
 		leastCommon = (zeroCounter <= oneCounter) ? '0' : '1';
 
-		for (auto currentString: co2List) {
-			if (currentString[i] == leastCommon) {
+		for (auto& currentString: co2List) 
+		{
+			if (currentString[i] == leastCommon) 
+			{
 				itemsToKeep.push_back(currentString);
 			}
 		}
@@ -131,11 +141,12 @@ std::string getC02Rating(std::vector<std::string> &co2List)
 	return co2List[0];
 }
 
-
-void printVector(const std::vector<std::string> &list)
+template <typename Type>
+void printVector(const std::vector<Type>& vect)
 {
 	std::cout << "\n";
-	for (auto i: list) {
+	for (auto& i: vect) 
+	{
 		std::cout << i << '\n';
 	}
 	std::cout << "\n";	
