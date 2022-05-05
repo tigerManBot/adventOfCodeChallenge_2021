@@ -81,6 +81,7 @@ void calculatePowerConsumption(std::vector<std::string>& binaryNumbers)
 
 		for (size_t j = 0; j < binaryNumbers.size(); j++)
 		{
+			//counts either a one or zero character
 			binaryCharMap[binaryNumbers[j][i]]++;
 		}
 
