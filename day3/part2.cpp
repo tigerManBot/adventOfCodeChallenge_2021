@@ -88,7 +88,7 @@ std::string getOxygenRating(std::vector<std::string>& oxygenList)
 
 		mostCommon = (oneCounter >= zeroCounter) ? '1' : '0';
 		
-		for (auto currentString: oxygenList) 
+		for (auto& currentString: oxygenList) 
 		{
 			if (currentString[i] == mostCommon) 
 			{
@@ -116,7 +116,7 @@ std::string getC02Rating(std::vector<std::string>& co2List)
 	for (std::vector<std::string>::size_type i = 0; i < co2List[i].size(); i++) 
 	{
 		
-		for (auto currentString: co2List) 
+		for (auto& currentString: co2List) 
 		{
 			(currentString[i] == '0') ? zeroCounter++ : oneCounter++;	
 		}
