@@ -81,14 +81,14 @@ std::string getOxygenRating(std::vector<std::string>& oxygenList)
 	for (size_t i = 0; i < oxygenList[i].size(); i++) 
 	{
 		
-		for (auto& currentString: oxygenList) 
+		for (auto& currentString : oxygenList) 
 		{
 			(currentString[i] == '0') ? zeroCounter++ : oneCounter++;	
 		}
 
 		mostCommon = (oneCounter >= zeroCounter) ? '1' : '0';
 		
-		for (auto& currentString: oxygenList) 
+		for (auto& currentString : oxygenList) 
 		{
 			if (currentString[i] == mostCommon) 
 			{
@@ -116,14 +116,14 @@ std::string getC02Rating(std::vector<std::string>& co2List)
 	for (size_t i = 0; i < co2List[i].size(); i++) 
 	{
 		
-		for (auto& currentString: co2List) 
+		for (auto& currentString : co2List) 
 		{
 			(currentString[i] == '0') ? zeroCounter++ : oneCounter++;	
 		}
 
 		leastCommon = (zeroCounter <= oneCounter) ? '0' : '1';
 
-		for (auto& currentString: co2List) 
+		for (auto& currentString : co2List) 
 		{
 			if (currentString[i] == leastCommon) 
 			{
@@ -145,7 +145,7 @@ template <typename Type>
 void printVector(const std::vector<Type>& vect)
 {
 	std::cout << "\n";
-	for (auto& i: vect) 
+	for (auto& i : vect) 
 	{
 		std::cout << i << '\n';
 	}
