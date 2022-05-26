@@ -78,7 +78,7 @@ std::string getOxygenRating(std::vector<std::string>& oxygenList)
 	char mostCommon;
 	std::vector<std::string> itemsToKeep;
 
-	for (std::vector<std::string>::size_type i = 0; i < oxygenList[i].size(); i++) 
+	for (size_t i = 0; i < oxygenList[i].size(); i++) 
 	{
 		
 		for (auto& currentString: oxygenList) 
@@ -113,7 +113,7 @@ std::string getC02Rating(std::vector<std::string>& co2List)
 	char leastCommon;
 	std::vector<std::string> itemsToKeep;
 
-	for (std::vector<std::string>::size_type i = 0; i < co2List[i].size(); i++) 
+	for (size_t i = 0; i < co2List[i].size(); i++) 
 	{
 		
 		for (auto& currentString: co2List) 
